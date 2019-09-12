@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="自定义">
+        <EditTextPreference android:title="输入想要显示的文字" android:key="text"/>
+        <ListPreference
+            android:key="text_color"
+            android:title="字体颜色"
+            android:dialogTitle="选择字体颜色"
+            android:entries="@array/color"
+            android:entryValues="@array/color"/>
+    </PreferenceCategory>
+
+
+</PreferenceScreen>

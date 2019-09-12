@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">AppWidgetDemo</string>
+    <string name="appwidget_text">hello world !</string>
+</resources>
