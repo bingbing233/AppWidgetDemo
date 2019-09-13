@@ -3,6 +3,12 @@ package com.bing.appwidgetdemo;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.os.Bundle;
+import android.util.Log;
+import android.util.TypedValue;
 import android.widget.RemoteViews;
 
 /**
@@ -10,16 +16,36 @@ import android.widget.RemoteViews;
  */
 public class NewAppWidget extends AppWidgetProvider {
 
+    @Override
+    public void onAppWidgetOptionsChanged(Context context, AppWidgetManager appWidgetManager, int appWidgetId, Bundle newOptions) {
+        super.onAppWidgetOptionsChanged(context, appWidgetManager, appWidgetId, newOptions);
+    }
+
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
-    
-        CharSequence widgetText = context.getString(R.string.appwidget_text);
+        SharedPreferences preferences = context.getSharedPreferences("data",Context.MODE_PRIVATE);
+        String text = preferences.getString("text",null);
+        String color = preferences.getString("text_color",null);
+        String size = preferences.getString("text_size",null);
+        CharSequence widgetText = text;
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.new_app_widget);
         views.setTextViewText(R.id.appwidget_text, widgetText);
+        views.setTextViewTextSize(R.id.appwidget_text, TypedValue.COMPLEX_UNIT_SP,Integer.parseInt(size));
+        if(color.equals("黑色")){
+            views.setTextColor(R.id.appwidget_text,Color.BLACK);
+        }
+        else {
+            views.setTextColor(R.id.appwidget_text,Color.WHITE);
+        }
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
+    }
+
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        super.onReceive(context, intent);
     }
 
     @Override

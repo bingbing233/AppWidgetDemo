@@ -10,6 +10,7 @@ import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.FloatingActionButton;
 
 import java.util.prefs.PreferenceChangeEvent;
 import java.util.prefs.PreferenceChangeListener;
@@ -18,7 +19,9 @@ public class SettingFragment extends PreferenceFragment implements SharedPrefere
 
     EditTextPreference editTextPreference;
     ListPreference listPreference;
+    EditTextPreference editTextPreference2;
     SharedPreferences pref;
+    FloatingActionButton fab;
 
     @Override
     public void onPause() {
@@ -31,6 +34,7 @@ public class SettingFragment extends PreferenceFragment implements SharedPrefere
     public void onResume() {
         editTextPreference.setSummary(editTextPreference.getText());
         listPreference.setSummary(listPreference.getValue());
+        editTextPreference2.setSummary(editTextPreference2.getText());
         getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
         super.onResume();
     }
@@ -42,6 +46,7 @@ public class SettingFragment extends PreferenceFragment implements SharedPrefere
         addPreferencesFromResource(R.xml.setting_preference);
         //初始化两个控件
         editTextPreference =(EditTextPreference)getPreferenceScreen().findPreference("text");
+        editTextPreference2 = (EditTextPreference)getPreferenceScreen().findPreference("text_size");
         listPreference = (ListPreference)getPreferenceScreen().findPreference("text_color");
         pref = PreferenceManager.getDefaultSharedPreferences(getContext());
     }
@@ -49,8 +54,12 @@ public class SettingFragment extends PreferenceFragment implements SharedPrefere
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         switch (key){
-            case "text":editTextPreference.setSummary(editTextPreference.getText());break;
-            case "text_color":listPreference.setSummary(listPreference.getValue());break;
+            case "text":editTextPreference.setSummary(editTextPreference.getText());
+            break;
+            case "text_color":listPreference.setSummary(listPreference.getValue());
+            break;
+            case "text_size":editTextPreference2.setSummary(editTextPreference2.getText()+"sp");
+            break;
         }
     }
 }

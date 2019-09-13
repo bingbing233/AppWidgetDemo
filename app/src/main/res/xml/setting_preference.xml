@@ -8,6 +8,9 @@
             android:dialogTitle="选择字体颜色"
             android:entries="@array/color"
             android:entryValues="@array/color"/>
+        <EditTextPreference
+            android:key="text_size"
+            android:title="字体大小"/>
     </PreferenceCategory>
 
 
