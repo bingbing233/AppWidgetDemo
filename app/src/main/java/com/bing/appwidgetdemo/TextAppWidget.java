@@ -7,14 +7,14 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.TypedValue;
 import android.widget.RemoteViews;
+import android.widget.Toast;
 
 /**
  * Implementation of App Widget functionality.
  */
-public class NewAppWidget extends AppWidgetProvider {
+public class TextAppWidget extends AppWidgetProvider {
 
     @Override
     public void onAppWidgetOptionsChanged(Context context, AppWidgetManager appWidgetManager, int appWidgetId, Bundle newOptions) {
@@ -29,7 +29,7 @@ public class NewAppWidget extends AppWidgetProvider {
         String size = preferences.getString("text_size",null);
         CharSequence widgetText = text;
         // Construct the RemoteViews object
-        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.new_app_widget);
+        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.text_app_widget);
         views.setTextViewText(R.id.appwidget_text, widgetText);
         views.setTextViewTextSize(R.id.appwidget_text, TypedValue.COMPLEX_UNIT_SP,Integer.parseInt(size));
         if(color.equals("黑色")){
@@ -46,6 +46,11 @@ public class NewAppWidget extends AppWidgetProvider {
     @Override
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
+        if(intent.getAction().equals("android.appwidget.action.APPWIDGET_UPDATE")){
+           AppWidgetManager appWidgetManager =AppWidgetManager.getInstance(context);
+           appWidgetManager.updateAppWidget(R.layout.text_app_widget,new RemoteViews(context.getPackageName(),R.id.appwidget_text));
+            Toast.makeText(context,"修改成功",Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

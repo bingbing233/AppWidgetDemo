@@ -1,5 +1,6 @@
 package com.bing.appwidgetdemo;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.EditTextPreference;
 import android.preference.ListPreference;
@@ -39,7 +40,8 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent("android.appwidget.action.APPWIDGET_UPDATE");
+                sendBroadcast(intent);
             }
         });
         saveData();
