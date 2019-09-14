@@ -1,6 +1,8 @@
 package com.bing.appwidgetdemo;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -12,10 +14,12 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.DatePicker;
 
+import java.util.Calendar;
 import java.util.prefs.PreferenceChangeEvent;
 import java.util.prefs.PreferenceChangeListener;
 
@@ -37,16 +41,19 @@ public class SettingFragment extends PreferenceFragment implements SharedPrefere
     public void onPause() {
         super.onPause();
         getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
-
     }
 
     @Override
     public void onResume() {
+        super.onResume();
         textInput.setSummary(textInput.getText());
         textColor.setSummary(textColor.getValue());
         textSizeInput.setSummary(textSizeInput.getText());
+        timerTextColor.setSummary(timerTextColor.getValue());
+        timerTextInput.setSummary(timerTextInput.getText());
+        timerTextSizeInput.setSummary(timerTextSizeInput.getText());
+        chooseDate.setSummary(date);
         getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
-        super.onResume();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -58,35 +65,36 @@ public class SettingFragment extends PreferenceFragment implements SharedPrefere
         textInput =(EditTextPreference)getPreferenceScreen().findPreference("text");
         textSizeInput = (EditTextPreference)getPreferenceScreen().findPreference("text_size");
         textColor = (ListPreference)getPreferenceScreen().findPreference("text_color");
+
         chooseDate = getPreferenceScreen().findPreference("choose_date");
         timerTextColor = (ListPreference) getPreferenceScreen().findPreference("timer_text_color");
         timerTextInput = (EditTextPreference)getPreferenceScreen().findPreference("timer_text");
         timerTextSizeInput = (EditTextPreference)getPreferenceScreen().findPreference("timer_text_size");
+       String string =  getContext().getSharedPreferences("data",Context.MODE_PRIVATE).getString("date",null);
+        chooseDate.setSummary(string);
+
         pref = PreferenceManager.getDefaultSharedPreferences(getContext());
 
         chooseDate.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setView(R.layout.preference_date_picker);
-                builder.setTitle("选择起始日期");
-                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    @RequiresApi(api = Build.VERSION_CODES.O)
+                Calendar calendar = Calendar.getInstance();
+                DatePickerDialog dialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        View view = LayoutInflater.from(getContext()).inflate(R.layout.preference_date_picker,null);
-                        DatePicker datePicker = view.findViewById(R.id.date_picker);
-                        datePicker.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
-                            @Override
-                            public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                                date = year+" "+monthOfYear+" "+dayOfMonth;
-                            }
-                        });
-
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        int temp = month+1;
+                       date = year+"-"+temp+"-"+dayOfMonth;
+                       SharedPreferences.Editor editor = getContext().getSharedPreferences("data", Context.MODE_PRIVATE).edit();
+                       editor.putString("date",date);
+                       editor.apply();
+                        chooseDate.setSummary(date);
                     }
-                });
-                builder.show();
-                return false;
+                },
+                        calendar.get(Calendar.YEAR),
+                        calendar.get(Calendar.MONDAY),
+                        calendar.get(Calendar.DAY_OF_MONTH));
+                dialog.show();
+                return true;
             }
         });
     }
