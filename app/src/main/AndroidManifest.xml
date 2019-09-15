@@ -9,7 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <receiver android:name=".TimerAppWidget">
+        <activity android:name=".IntroActivity"
+            android:theme="@style/MyNoActionBar">
+
+        </activity>
+
+        <receiver
+            android:name=".TimerAppWidget"
+            android:label="正计时">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -18,7 +25,9 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/timer_app_widget_info" />
         </receiver>
-        <receiver android:name=".TextAppWidget">
+        <receiver
+            android:name=".TextAppWidget"
+            android:label="文字">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>

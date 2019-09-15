@@ -35,13 +35,17 @@ public class TimerAppWidget extends AppWidgetProvider {
         CharSequence widgetText = timerText+days+"天了";
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.timer_app_widget);
+
         views.setTextViewText(R.id.timer, widgetText);
         views.setTextViewTextSize(R.id.timer, TypedValue.COMPLEX_UNIT_SP,Integer.parseInt(timerTextSize));
         if(timerTextcolor.equals("黑色")){
             views.setTextColor(R.id.timer, Color.BLACK);
         }
-        else {
+        if(timerTextcolor.equals("白色")) {
             views.setTextColor(R.id.timer,Color.WHITE);
+        }
+        if(timerTextcolor.equals("粉色")){
+            views.setTextColor(R.id.timer,Color.parseColor("#FA7298"));
         }
 
         // Instruct the widget manager to update the widget

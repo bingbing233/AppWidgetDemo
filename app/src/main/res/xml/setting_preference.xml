@@ -31,7 +31,12 @@
             android:dialogTitle="选择字体颜色"
             android:entries="@array/color"
             android:entryValues="@array/color"/>
-
+    </PreferenceCategory>
+    <PreferenceCategory android:title="其他">
+        <Preference
+            android:key="about_author"
+            android:title="关于作者"
+            android:summary="了解更多"/>
     </PreferenceCategory>
 
 

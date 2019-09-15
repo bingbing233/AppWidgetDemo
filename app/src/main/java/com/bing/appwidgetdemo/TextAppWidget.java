@@ -35,8 +35,11 @@ public class TextAppWidget extends AppWidgetProvider {
         if(color.equals("黑色")){
             views.setTextColor(R.id.appwidget_text,Color.BLACK);
         }
-        else {
+        if(color.equals("白色")) {
             views.setTextColor(R.id.appwidget_text,Color.WHITE);
+        }
+        if(color.equals("粉色")){
+            views.setTextColor(R.id.appwidget_text,Color.parseColor("#FA7298"));
         }
 
         // Instruct the widget manager to update the widget

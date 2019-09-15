@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -36,6 +37,8 @@ public class SettingFragment extends PreferenceFragment implements SharedPrefere
     EditTextPreference timerTextSizeInput;
     ListPreference timerTextColor;
     String date;
+    //关于作者
+    Preference aboutAuthor;
 
     @Override
     public void onPause() {
@@ -62,6 +65,7 @@ public class SettingFragment extends PreferenceFragment implements SharedPrefere
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.setting_preference);
         //初始化控件
+        aboutAuthor =getPreferenceScreen().findPreference("about_author");
         textInput =(EditTextPreference)getPreferenceScreen().findPreference("text");
         textSizeInput = (EditTextPreference)getPreferenceScreen().findPreference("text_size");
         textColor = (ListPreference)getPreferenceScreen().findPreference("text_color");
@@ -94,6 +98,15 @@ public class SettingFragment extends PreferenceFragment implements SharedPrefere
                         calendar.get(Calendar.MONDAY),
                         calendar.get(Calendar.DAY_OF_MONTH));
                 dialog.show();
+                return true;
+            }
+        });
+
+        aboutAuthor.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                Intent intent  = new Intent(getContext(),IntroActivity.class);
+                startActivity(intent);
                 return true;
             }
         });
