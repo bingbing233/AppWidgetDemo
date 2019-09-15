@@ -16,7 +16,7 @@
 
         <receiver
             android:name=".TimerAppWidget"
-            android:label="正计时">
+            android:label="计时">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>

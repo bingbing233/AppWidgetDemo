@@ -32,7 +32,7 @@ public class TimerAppWidget extends AppWidgetProvider {
         String timerTextSize = preferences.getString("timer_text_size",null);
         String date = preferences.getString("date",null);
         String days = calculateDate(date);
-        CharSequence widgetText = timerText+days+"天了";
+        CharSequence widgetText = timerText+days+"天";
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.timer_app_widget);
 
@@ -85,7 +85,7 @@ public class TimerAppWidget extends AppWidgetProvider {
             Long day = diff / (1000 * 60 * 60 * 24);   //以天数为单位取整
 
             Log.e("tag","day =" +day);
-            return day+"";
+            return Math.abs(day)+"";
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -15,7 +15,7 @@
             android:entryValues="@array/color"/>
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="正计时">
+    <PreferenceCategory android:title="计时">
         <EditTextPreference
             android:title="输入想要显示的文字"
             android:key="timer_text"/>
@@ -35,8 +35,8 @@
     <PreferenceCategory android:title="其他">
         <Preference
             android:key="about_author"
-            android:title="关于作者"
-            android:summary="了解更多"/>
+            android:title="了解更多"
+            android:summary="(ง •_•)ง"/>
     </PreferenceCategory>
 
 
