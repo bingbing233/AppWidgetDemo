@@ -1,5 +1,6 @@
 package com.bing.appwidgetdemo;
 
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
@@ -30,6 +31,8 @@ public class TextAppWidget extends AppWidgetProvider {
         CharSequence widgetText = text;
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.text_app_widget);
+
+        //设置属性
         views.setTextViewText(R.id.appwidget_text, widgetText);
         views.setTextViewTextSize(R.id.appwidget_text, TypedValue.COMPLEX_UNIT_SP,Integer.parseInt(size));
         if(color.equals("黑色")){
@@ -41,6 +44,10 @@ public class TextAppWidget extends AppWidgetProvider {
         if(color.equals("粉色")){
             views.setTextColor(R.id.appwidget_text,Color.parseColor("#FA7298"));
         }
+        //点击监听
+//        Intent intent = new Intent("open_activity");
+//        PendingIntent pendingIntent = PendingIntent.getActivity(context,0,intent,0);
+//        views.setOnClickPendingIntent(R.id.appwidget_text,pendingIntent);
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
@@ -49,11 +56,11 @@ public class TextAppWidget extends AppWidgetProvider {
     @Override
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
-        if(intent.getAction().equals("android.appwidget.action.APPWIDGET_UPDATE")){
+       /* if(intent.getAction().equals("android.appwidget.action.APPWIDGET_UPDATE")){
            AppWidgetManager appWidgetManager =AppWidgetManager.getInstance(context);
            appWidgetManager.updateAppWidget(R.layout.text_app_widget,new RemoteViews(context.getPackageName(),R.id.appwidget_text));
-            Toast.makeText(context,"修改成功",Toast.LENGTH_SHORT).show();
-        }
+            //Toast.makeText(context,"修改成功",Toast.LENGTH_SHORT).show();
+        }*/
     }
 
     @Override

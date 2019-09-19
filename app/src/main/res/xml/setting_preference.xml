@@ -3,11 +3,14 @@
     <PreferenceCategory android:title="桌面文本显示">
         <EditTextPreference
             android:title="输入想要显示的文字"
-            android:key="text"/>
+            android:key="text"
+            android:summary="hello world!"/>
         <EditTextPreference
             android:key="text_size"
-            android:title="字体大小"/>
+            android:title="字体大小"
+            android:summary="20"/>
         <ListPreference
+            android:summary="白色"
             android:key="text_color"
             android:title="字体颜色"
             android:dialogTitle="选择字体颜色"
@@ -18,13 +21,13 @@
     <PreferenceCategory android:title="计时">
         <EditTextPreference
             android:title="输入想要显示的文字"
-            android:key="timer_text"/>
+            android:key="timer_text" />
         <Preference
             android:title="选择起始日期"
             android:key="choose_date"/>
         <EditTextPreference
             android:key="timer_text_size"
-            android:title="字体大小"/>
+            android:title="字体大小（建议取20附近的值）" />
         <ListPreference
             android:key="timer_text_color"
             android:title="字体颜色"

@@ -74,7 +74,7 @@ public class SettingFragment extends PreferenceFragment implements SharedPrefere
         timerTextColor = (ListPreference) getPreferenceScreen().findPreference("timer_text_color");
         timerTextInput = (EditTextPreference)getPreferenceScreen().findPreference("timer_text");
         timerTextSizeInput = (EditTextPreference)getPreferenceScreen().findPreference("timer_text_size");
-       String string =  getContext().getSharedPreferences("data",Context.MODE_PRIVATE).getString("date",null);
+        String string =  getContext().getSharedPreferences("data",Context.MODE_PRIVATE).getString("date",null);
         chooseDate.setSummary(string);
 
         pref = PreferenceManager.getDefaultSharedPreferences(getContext());
