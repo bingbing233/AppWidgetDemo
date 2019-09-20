@@ -44,29 +44,22 @@ public class TextAppWidget extends AppWidgetProvider {
         if(color.equals("粉色")){
             views.setTextColor(R.id.appwidget_text,Color.parseColor("#FA7298"));
         }
-        //点击监听
-//        Intent intent = new Intent("open_activity");
-//        PendingIntent pendingIntent = PendingIntent.getActivity(context,0,intent,0);
-//        views.setOnClickPendingIntent(R.id.appwidget_text,pendingIntent);
-
-        // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
 
     @Override
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
-       /* if(intent.getAction().equals("android.appwidget.action.APPWIDGET_UPDATE")){
-           AppWidgetManager appWidgetManager =AppWidgetManager.getInstance(context);
-           appWidgetManager.updateAppWidget(R.layout.text_app_widget,new RemoteViews(context.getPackageName(),R.id.appwidget_text));
-            //Toast.makeText(context,"修改成功",Toast.LENGTH_SHORT).show();
-        }*/
     }
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         // There may be multiple widgets active, so update all of them
         for (int appWidgetId : appWidgetIds) {
+            /*Intent intent = new Intent(context, MainActivity.class);
+            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+            RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.text_app_widget);
+            remoteViews.setOnClickPendingIntent(R.id.appwidget_text, pendingIntent);*/
             updateAppWidget(context, appWidgetManager, appWidgetId);
         }
     }

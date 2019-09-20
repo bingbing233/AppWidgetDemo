@@ -1,5 +1,6 @@
 package com.bing.appwidgetdemo;
 
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
@@ -55,6 +56,15 @@ public class TimerAppWidget extends AppWidgetProvider {
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         // There may be multiple widgets active, so update all of them
+        //开启Activity
+        //获取窗体小部件布局转换成的view对象(定位应用的包名,当前应用中的那块布局文件)
+        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.timer_app_widget);
+        //创建一个Intent对象
+        Intent intent = new Intent(context, MainActivity.class);
+        //设置pendingIntent的作用
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        //给窗体小部件布view对象,内部控件赋值
+        remoteViews.setOnClickPendingIntent(R.id.timer, pendingIntent);
         for (int appWidgetId : appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetId);
         }

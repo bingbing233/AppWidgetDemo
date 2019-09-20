@@ -1,9 +1,7 @@
 package com.bing.appwidgetdemo;
 
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -14,17 +12,19 @@ import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.support.annotation.RequiresApi;
-import android.support.design.widget.FloatingActionButton;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.DatePicker;
 
 import java.util.Calendar;
-import java.util.prefs.PreferenceChangeEvent;
-import java.util.prefs.PreferenceChangeListener;
+
 
 public class SettingFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    @Override
+    public void onActivityCreated( Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        date = getContext().getSharedPreferences("data",Context.MODE_PRIVATE).getString("date",null);
+        chooseDate.setSummary(date);
+    }
 
     //文字设置
     EditTextPreference textInput;
@@ -36,6 +36,7 @@ public class SettingFragment extends PreferenceFragment implements SharedPrefere
     EditTextPreference timerTextInput;
     EditTextPreference timerTextSizeInput;
     ListPreference timerTextColor;
+
     String date;
     //关于作者
     Preference aboutAuthor;
@@ -65,11 +66,12 @@ public class SettingFragment extends PreferenceFragment implements SharedPrefere
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.setting_preference);
         //初始化控件
+        //文字部分
         aboutAuthor =getPreferenceScreen().findPreference("about_author");
         textInput =(EditTextPreference)getPreferenceScreen().findPreference("text");
         textSizeInput = (EditTextPreference)getPreferenceScreen().findPreference("text_size");
         textColor = (ListPreference)getPreferenceScreen().findPreference("text_color");
-
+        //计时部分
         chooseDate = getPreferenceScreen().findPreference("choose_date");
         timerTextColor = (ListPreference) getPreferenceScreen().findPreference("timer_text_color");
         timerTextInput = (EditTextPreference)getPreferenceScreen().findPreference("timer_text");
@@ -126,8 +128,6 @@ public class SettingFragment extends PreferenceFragment implements SharedPrefere
             case "timer_text_size":timerTextSizeInput.setSummary(timerTextSizeInput.getText()+"sp");
             break;
             case "timer_text_color":timerTextColor.setSummary(timerTextColor.getValue());
-            break;
-            case "choose_date":chooseDate.setSummary(date);
             break;
         }
     }

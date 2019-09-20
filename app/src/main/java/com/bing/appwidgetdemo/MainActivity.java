@@ -27,6 +27,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
+    Preference chooseDate;
     FloatingActionButton fab;
     @Override
     protected void onResume() {
@@ -64,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this,"保存成功",Toast.LENGTH_SHORT).show();
             }
         });
+
     }
 
     private void saveData(){
